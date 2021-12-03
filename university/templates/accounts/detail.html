@@ -33,68 +33,77 @@
   {% include 'partials/_alerts.html' %}
 
   <section id="dashboard" class="py-4">
-    <div class="container">
-        <div class="row">
-            {% for i,j in stats %}
-            <div id="{{i}}" hidden="true">{{j}}</div>
-            {% endfor %}
-        </div>
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-12">
-          <h2>Students enrolled in the course are </h2>
+    {% if students %}
+        <div class="container">
+          <div class="row">
+              {% for i,j in stats %}
+              <div id="{{i}}" hidden="true">{{j}}</div>
+              {% endfor %}
+          </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12">
+            
+            <h2>Students enrolled in the course are </h2>
+            <hr>
+            <table>
+                  {% for student in students %}
+                  
+
+                  
+                  <form action="{% url 'grade_change' student.id %}" method="POST">
+                      {% csrf_token %}
+                              <tr>
+                                  <td>
+                                      {{ student.student.first_name }}  {{ student.student.last_name}} &emsp;&emsp;
+                                  </td>
+                                  <td>
+                                      Grade  <b>{{ student.grade }}</b>/<b>10</b>&emsp;&emsp;&emsp;
+                                  </td>
+                                  {% if modifiable %}
+                                  <td>
+                                      <label for="new_grade" class="sr-only">New Grade</label>
+                                  </td>
+                                  <td>
+                                  <select name="new_grade" class="form-control" id="type">
+                                      {% for grade in grades %}
+                                      <option value="{{ grade }}">{{ grade }}</option>
+                                      {% endfor %}
+                                  </select>
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-secondary btn-block" type="submit">Change Grade</button>
+                                  </td>
+                                  {% endif %}
+                              </tr>
+                  </form>
+              {% endfor %}
+              </table>
+            
+            
+
+          </div>
+
           <hr>
-          <table>
-                {% for student in students %}
-                
+          <br>
+          <br>
+          <br>
 
-                
-                <form action="{% url 'grade_change' student.id %}" method="POST">
-                    {% csrf_token %}
-                            <tr>
-                                <td>
-                                    {{ student.student.first_name }}  {{ student.student.last_name}} &emsp;&emsp;
-                                </td>
-                                <td>
-                                    Grade  <b>{{ student.grade }}</b>/<b>10</b>&emsp;&emsp;&emsp;
-                                </td>
-                                {% if modifiable %}
-                                <td>
-                                    <label for="new_grade" class="sr-only">New Grade</label>
-                                </td>
-                                <td>
-                                <select name="new_grade" class="form-control" id="type">
-                                    {% for grade in grades %}
-                                    <option value="{{ grade }}">{{ grade }}</option>
-                                    {% endfor %}
-                                </select>
-                                </td>
-                                <td>
-                                    <button class="btn btn-secondary btn-block" type="submit">Change Grade</button>
-                                </td>
-                                {% endif %}
-                            </tr>
-                </form>
-            {% endfor %}
-            </table>
           
-          
-
         </div>
-
         <hr>
-        <br>
-        <br>
-        <br>
-
         
+        {% if students %}
+            <div class="row d-flex justify-content-center mb-4">
+              <div class="col-md-6">
+                  <canvas id="myChart" width="40" height="40"></canvas>
+              </div>
+            </div>
+        {% endif %}
       </div>
-      <hr>
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-6 mt-6">
-            <canvas id="myChart" width="40" height="40"></canvas>
-        </div>
-      </div>
-    </div>
+    {% else %}
+        <h2 class="row d-flex justify-content-center" >No Students enrolled yet! </h2>
+    {% endif %}
+    
   </section>
 
   
@@ -112,11 +121,11 @@
     }
 
     const myChart = new Chart(ctx, {
-        type: 'doughnut',
+        type: 'bar',
         data: {
             labels: grades,
             datasets: [{
-                label: '# of Votes',
+                label: 'Number of students having each type of grades',
                 data: number,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',

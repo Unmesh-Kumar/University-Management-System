@@ -88,68 +88,74 @@
             <br>
             <br>
 
-            <div class="row">
-              {% for i,j in stats %}
-              <div id="{{i}}" hidden="true">{{j}}</div>
-              {% endfor %}
-            </div>
+            {% if qs %}
+                <div class="row">
+                  {% for i,j in stats %}
+                  <div id="{{i}}" hidden="true">{{j}}</div>
+                  {% endfor %}
+                </div>
 
-            <div class="row d-flex justify-content-center">
-              <div class="col-md-6 mt-6">
-                  <canvas id="myChart" width="40" height="40"></canvas>
-              </div>
-            </div>
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-6 mt-6">
+                      <canvas id="myChart" width="40" height="40"></canvas>
+                  </div>
+                </div>
 
-            <script>
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const grades=[];
-            const number=[];
-            for(let i=0;i<=10;i++){
-                grades.push(i);
-            }
+                <hr>
 
-            for(let i=0;i<=10;i++){
-                number.push(document.getElementById(i).innerHTML);
-            }
-
-            const myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: grades,
-                    datasets: [{
-                        label: '# of Votes',
-                        data: number,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(55, 199, 190, 0.2)',
-                            'rgba(99, 162, 20, 0.2)',
-                            'rgba(122, 2, 86, 0.2)',
-                            'rgba(11, 1, 23, 0.2)',
-                            'rgba(121, 12, 213, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(55, 199, 190, 1)',
-                            'rgba(99, 162, 20, 1)',
-                            'rgba(122, 2, 86, 1)',
-                            'rgba(11, 1, 23, 1)',
-                            'rgba(121, 12, 213, 1)',
-                        ],
-                        borderWidth: 1
-                    }]
+                <script>
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const grades=[];
+                const number=[];
+                for(let i=0;i<=10;i++){
+                    grades.push(i);
                 }
-            });   
-            </script>
+
+                for(let i=0;i<=10;i++){
+                    number.push(document.getElementById(i).innerHTML);
+                }
+
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: grades,
+                        datasets: [{
+                            label: 'Number of courses having each type of grade',
+                            data: number,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(55, 199, 190, 0.2)',
+                                'rgba(99, 162, 20, 0.2)',
+                                'rgba(122, 2, 86, 0.2)',
+                                'rgba(11, 1, 23, 0.2)',
+                                'rgba(121, 12, 213, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(55, 199, 190, 1)',
+                                'rgba(99, 162, 20, 1)',
+                                'rgba(122, 2, 86, 1)',
+                                'rgba(11, 1, 23, 1)',
+                                'rgba(121, 12, 213, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    }
+                });   
+                </script>
+            {% endif %}
+
+            
 
 
             {% if courses %}
@@ -192,7 +198,7 @@
               {% endfor %}
             </table>
           {% else %}
-            <h6>Currently You have not courses under You</h6>
+            <h6>Currently You have no courses under You</h6>
           {% endif %}
 
 
