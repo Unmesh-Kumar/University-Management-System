@@ -2,6 +2,7 @@
 
 This is a portal for where both student and profs can register
 Both Profs and students will have different types of dashboard
+It is deployed on https://unmeshkumar.pythonanywhere.com/
 
 Prof's Dashboard
 - Profs can see the courses under then and students enrolled in those courses
