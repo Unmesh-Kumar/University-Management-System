@@ -6,7 +6,7 @@ It is deployed on https://unmeshkumar.pythonanywhere.com/
 
 Prof's Dashboard
 - Profs can see the courses under them and students enrolled in those courses
-- They can change the grades of the students enrolled in those grades
+- They can change the grades of the students enrolled in those courses
 - They can see a bar graph reprsenting the number of students securing a particular grade
 - They can add a new course with credits ranging from 1 to 4
 
