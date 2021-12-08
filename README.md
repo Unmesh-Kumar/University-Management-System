@@ -1,6 +1,6 @@
 # University-Management-System
 
-This is a portal for where both student and profs can register
+This is a portal where both student and profs can register
 Both Profs and students will have different types of dashboard
 It is deployed on https://unmeshkumar.pythonanywhere.com/
 
